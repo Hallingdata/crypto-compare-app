@@ -1,36 +1,39 @@
 {
   "compilerOptions": {
-    "target": "es2015",
-    "module": "es2015",
-    "moduleResolution": "node",
-    "jsx": "react-native",
-    "outDir": "build",
-    "rootDir": "src",
-    "typeRoots": ["./node_modules/@types/**/*.d.ts"],
-    "allowSyntheticDefaultImports": true,
-    "noImplicitAny": true,
+    "target": "es5",
+    "module": "commonjs",
+    "outDir": "build/dist",
+    "sourceMap": true,
     "experimentalDecorators": true,
-    "preserveConstEnums": true,
-    "allowJs": false,
-    "watch": true,
-    "sourceMap": true
+    "jsx": "react",
+    "lib": [
+      "dom",
+      "es2015",
+      "es2016"
+    ],
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "noEmitHelpers": true,
+    "importHelpers": true,
+    "strict": true,
+    "noImplicitReturns": true
+    //"allowJs": true,
+    ////"inlineSourceMap": true,
+    ////"sourceRoot": "src",
+    //"watch": true.
+    //"noUnusedLocals": true
   },
-  "include": [
-    //"./node_modules/@types/**/*.d.ts",
-    //"./node_modules/**/*.d.ts",
-    "./src/**/*.ts",
-    "./src/**/*.tsx"
-    //"./node_modules/native-base/index.d.ts"
-  ],
   "exclude": [
-    "index.android.js",
-    "index.ios.js",
-    "build",
-    "./App.js",
     "node_modules",
-    "__tests__",
-    "*.js",
-    "*.json"
+    "build",
+    "scripts",
+    "acceptance-tests",
+    "webpack",
+    "jest",
+    "src/setupTests.ts"
+  ],
+  "types": [
+    "typePatches"
   ],
   "compileOnSave": true
 }
