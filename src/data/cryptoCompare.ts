@@ -1,5 +1,6 @@
 import { makeExecutableSchema } from "graphql-tools"
 import * as R from "ramda"
+import { GraphQLSchema } from "graphql"
 
 const typeDefs = `
 type Coin {
@@ -8,7 +9,7 @@ type Coin {
   ImageUrl: String
   Name: String
   CoinName: String
-  histoHour: [DataPoint]
+  candleHour: [DataPoint]
 }
 type DataPoint {
   time: Int
@@ -30,6 +31,7 @@ schema {
 
 const endpoint = "https://min-api.cryptocompare.com"
 const oldEndpoint = "https://www.cryptocompare.com/api"
+
 const dataToJSON = R.composeP(R.prop("Data"), R.invoker(0, "json"))
 
 const objectToArray = (data: any) =>
@@ -43,9 +45,9 @@ const coin = async (root: any, { id }: { id: number }) =>
 const coins = () =>
   R.composeP(objectToArray, dataToJSON, fetch)(`${endpoint}/data/all/coinlist`)
 
-const histoHour = (symbol: string) =>
+const candleHour = ({ Symbol }: { Symbol: string }) =>
   R.composeP(dataToJSON, fetch)(
-    `${endpoint}/data/histohour?fsym=${symbol}&tsym=USD&limit=10&aggregate=3&e=CCCAGG,`
+    `${endpoint}/data/histohour?fsym=${Symbol}&tsym=USD&limit=10&aggregate=3&e=CCCAGG`
   )
 
 const resolvers = {
@@ -54,8 +56,11 @@ const resolvers = {
     coins,
   },
   Coin: {
-    histoHour,
+    candleHour,
   },
 }
 
-export const schema = makeExecutableSchema({ typeDefs, resolvers })
+export const schema: GraphQLSchema = makeExecutableSchema({
+  typeDefs,
+  resolvers,
+})
