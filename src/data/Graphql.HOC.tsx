@@ -1,6 +1,6 @@
 import { graphql, GraphQLSchema } from "graphql"
+import { Container, Text } from "native-base"
 import * as React from "react"
-import { Text, View } from "react-native"
 
 type Props = {}
 type State = {
@@ -34,13 +34,13 @@ export const GraphqlHOC = (
 
     render() {
       return (
-        <View>
+        <Container>
           {this.state.loading ? (
             <Text>Loading...</Text>
           ) : (
             <ComposedComponent data={this.state.data} {...this.props} />
           )}
-        </View>
+        </Container>
       )
     }
   }
