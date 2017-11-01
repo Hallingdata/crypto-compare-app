@@ -1,8 +1,8 @@
 import * as React from "react"
 import { FlatList, Text } from "react-native"
 
-import { schema } from "../data/cryptoCompare"
-import { GraphqlHOC } from "../data/GraphqlHOC"
+import { schema } from "../data/cryptoCompare.schema"
+import { GraphqlHOC } from "../data/Graphql.HOC"
 
 const coinsQuery = `
 { 
