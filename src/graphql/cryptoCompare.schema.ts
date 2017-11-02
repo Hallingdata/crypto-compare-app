@@ -44,7 +44,7 @@ schema {
 
 const cryptoCompare = "https://min-api.cryptocompare.com"
 const cryptoCompare_old = "https://www.cryptocompare.com/api"
-const coinCap = "http://coincap.io"
+const coinCap = "https://coincap.io"
 
 const dataToJSON = R.composeP(R.prop("Data"), R.invoker(0, "json"))
 
