@@ -6,6 +6,7 @@ type Props = {}
 type State = {
   loaded: boolean
   loading: boolean
+  error: boolean
   data?: any
 }
 export const GraphqlHOC = (
@@ -19,17 +20,27 @@ export const GraphqlHOC = (
       this.state = {
         loaded: false,
         loading: false,
+        error: false,
       }
     }
 
     async componentWillMount() {
       this.setState({ loading: true })
-      const { data } = await graphql(schema, query)
-      this.setState({
-        data,
-        loaded: true,
-        loading: false,
-      })
+      try {
+        const { data } = await graphql(schema, query)
+        this.setState({
+          data,
+          loaded: true,
+          loading: false,
+          error: false,
+        })
+      } catch (error) {
+        this.setState({
+          loaded: false,
+          loading: false,
+          error: true,
+        })
+      }
     }
 
     render() {
@@ -37,6 +48,8 @@ export const GraphqlHOC = (
         <Container>
           {this.state.loading ? (
             <Text>Loading...</Text>
+          ) : this.state.error ? (
+            <Text>Error: could not retrieve data</Text>
           ) : (
             <ComposedComponent data={this.state.data} {...this.props} />
           )}
