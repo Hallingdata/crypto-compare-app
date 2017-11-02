@@ -1,8 +1,10 @@
 import * as Expo from "expo"
 import * as React from "react"
 import { Component } from "react"
+import { Container } from "native-base"
 
-import { CoinList } from "./components/CoinList"
+import { CoinList } from "./components/CoinList.query"
+import { View } from "react-native"
 
 type Props = {}
 type State = {}
@@ -15,6 +17,10 @@ export class App extends React.Component<Props, State> {
     })
   }
   render() {
-    return <CoinList />
+    return (
+      <Container style={{ marginTop: Expo.Constants.statusBarHeight }}>
+        <CoinList />
+      </Container>
+    )
   }
 }
