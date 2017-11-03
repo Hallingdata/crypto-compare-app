@@ -2,7 +2,7 @@ import { graphql, GraphQLSchema } from "graphql"
 import { Container, Text } from "native-base"
 import * as React from "react"
 
-type Props = {}
+type Props = any
 type State = {
   loaded: boolean
   loading: boolean

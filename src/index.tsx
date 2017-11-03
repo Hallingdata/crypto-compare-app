@@ -1,26 +1,41 @@
-import * as Expo from "expo"
-import * as React from "react"
-import { Component } from "react"
-import { Container } from "native-base"
+import { SideBar } from './components/SideBar';
+import * as Expo from 'expo';
+import { Text } from "native-base"
+import * as React from 'react';
+import { StackNavigator } from "react-navigation"
 
-import { CoinList } from "./components/CoinList.query"
-import { View } from "react-native"
+import { CoinScreen } from "./components/CoinScreen"
+import { HomeScreen } from "./components/HomeScreen"
+import { DrawerNavigator } from "react-navigation";
 
-type Props = {}
-type State = {}
+const Content = DrawerNavigator({
+  Home: { screen: HomeScreen },
+  Coin: { screen: CoinScreen },
+}
+)
 
-export class App extends React.Component<Props, State> {
+export class App extends React.Component<{}, { isReady: boolean }> {
+  constructor(props: any) {
+    super(props)
+    this.state = {
+      isReady: false,
+    }
+  }
+
   async componentWillMount() {
     await Expo.Font.loadAsync({
       Roboto: require("native-base/Fonts/Roboto.ttf"),
       Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
     })
+    this.setState({
+      isReady: true,
+    })
   }
   render() {
-    return (
-      <Container style={{ marginTop: Expo.Constants.statusBarHeight }}>
-        <CoinList />
-      </Container>
+    return this.state.isReady ? (
+      <Content style={{ marginTop: Expo.Constants.statusBarHeight }} />
+    ) : (
+      <Text>Wait...</Text>
     )
   }
 }
